@@ -58,7 +58,13 @@ const config: Config = {
         href: 'https://techgears.app',
         target: '_blank',
       },
-      items: [],
+      items: [
+        {
+          to: '/category/guia-de-uso',
+          label: 'Guia',
+          position: 'left',
+        },
+      ],
     },
     footer: {
       style: 'dark',
