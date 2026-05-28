@@ -1,6 +1,16 @@
 import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
+import projects from './src/data/projects.json';
+
+type Project = {slug: string; name: string; status?: string; url?: string};
+
+const projectNavItems = (projects as Project[])
+  .filter(p => p.status === 'active' || p.status === 'wip' || !p.status)
+  .map(p => ({
+    label: p.name,
+    href: p.url ?? `https://docs.techgears.app/${p.slug}/`,
+  }));
 
 const config: Config = {
   title: 'TechGears Docs',
@@ -60,21 +70,26 @@ const config: Config = {
       },
       items: [
         {
+          to: '/',
+          label: 'Home',
+          position: 'left',
+          exact: true,
+        },
+        {
           to: '/category/guia-de-uso',
           label: 'Guia',
           position: 'left',
         },
+        ...(projectNavItems.length > 0 ? [{
+          label: 'Projetos',
+          position: 'left' as const,
+          items: projectNavItems,
+        }] : []),
       ],
     },
     footer: {
       style: 'dark',
       links: [
-        {
-          title: 'Projetos',
-          items: [
-            {label: 'Programmable ECU', href: 'https://docs.techgears.app/programmable-ecu/'},
-          ],
-        },
         {
           title: 'TechGears',
           items: [
