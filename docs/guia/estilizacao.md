@@ -12,7 +12,9 @@ sidebar_position: 1
 
 ## Blocos de Destaque
 
-&emsp;Use os blocos abaixo para chamar atenção para informações importantes:
+&emsp;Use os blocos abaixo para chamar atenção para informações importantes. Os admonitions devem ficar **fora** do `<div>` de justificação para renderizar corretamente.
+
+</div>
 
 :::tip Sugestão
 Prefira mensagens diretas e fáceis de ler.
@@ -30,6 +32,28 @@ Este conteúdo é apenas informativo.
 Anotações rápidas para referência futura.
 :::
 
+<div style={{textAlign: 'justify'}}>
+
+&emsp;**Importante:** admonitions precisam estar fora do `<div style={{textAlign: 'justify'}}>` para renderizar. Feche o `div` antes do admonition e reabra depois:
+
+```md
+<div style={{textAlign: 'justify'}}>
+
+&emsp;Texto antes.
+
+</div>
+
+:::tip Sugestão
+Conteúdo do admonition.
+:::
+
+<div style={{textAlign: 'justify'}}>
+
+&emsp;Texto depois.
+
+</div>
+```
+
 ## Conteúdo Expansível
 
 &emsp;Use as tags `<details>` e `<summary>` para ocultar informações secundárias:
@@ -45,12 +69,16 @@ Informações adicionais aparecem aqui.
 
 **Resultado:**
 
+</div>
+
 <details>
 <summary>Clique para expandir</summary>
 
 Informações adicionais aparecem aqui.
 
 </details>
+
+<div style={{textAlign: 'justify'}}>
 
 ## Citação
 
