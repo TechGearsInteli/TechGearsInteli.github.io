@@ -6,11 +6,17 @@ on:
     types: [docs-deployed]
   push:
     branches: [main]
-    paths:
-      - 'scripts/build-portal.js'
+    paths-ignore:
+      - 'src/data/projects.json'
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -21,16 +27,39 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
 
-      - name: Scan repos and generate portal
+      - name: Scan org repos and update projects.json
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: node scripts/build-portal.js
+        run: node scripts/scan-projects.js
 
-      - name: Commit if changed
+      - name: Commit updated projects.json if changed
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add index.html guide.html projects.json
-          git diff --cached --quiet && echo "No changes" || \
-            (git commit -m "chore: regenerate portal [skip ci]" && git push)
+          git add src/data/projects.json
+          git diff --cached --quiet && echo "No changes to projects.json" || \
+            (git commit -m "chore: update projects.json [skip ci]" && git push)
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Docusaurus
+        run: npm run build
+
+      - uses: actions/configure-pages@v4
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

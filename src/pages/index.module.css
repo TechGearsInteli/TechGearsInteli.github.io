@@ -1,0 +1,92 @@
+.main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+.heading {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.accent {
+  color: #f83038;
+}
+
+.subtitle {
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 300;
+  margin-bottom: 2.5rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+.card {
+  background: #2f2f2f;
+  border-left: 4px solid #f83038;
+  border-radius: 6px;
+  padding: 1.25rem 1.5rem;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.15s, transform 0.15s;
+  display: block;
+}
+
+.card:hover {
+  background: #383838;
+  transform: translateY(-2px);
+  text-decoration: none;
+  color: inherit;
+}
+
+.cardDisabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.cardTitle {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0 0 0.35rem;
+}
+
+.cardDesc {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.55);
+  font-weight: 300;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  margin-bottom: 0.6rem;
+}
+
+.tagActive {
+  background: rgba(248, 48, 56, 0.15);
+  color: #f83038;
+}
+
+.tagWip {
+  background: rgba(248, 180, 0, 0.12);
+  color: #f8b400;
+}
+
+.tagSoon {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.empty {
+  color: rgba(255, 255, 255, 0.4);
+}
