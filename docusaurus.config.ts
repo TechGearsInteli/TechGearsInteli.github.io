@@ -20,6 +20,10 @@ const config: Config = {
 
   future: { v4: true },
 
+  storage: {
+    namespace: 'tg-docs',
+  },
+
   url: 'https://docs.techgears.app',
   baseUrl: '/',
 
