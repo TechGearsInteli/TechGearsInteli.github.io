@@ -35,7 +35,19 @@ const config: Config = {
   },
 
   markdown: { mermaid: true },
-  themes: ['@docusaurus/theme-mermaid'],
+  themes: [
+    '@docusaurus/theme-mermaid',
+    [
+      require.resolve('@easyops-cn/docusaurus-search-local'),
+      {
+        hashed: true,
+        language: ['pt'],
+        indexBlog: false,
+        docsRouteBasePath: '/',
+        searchResultLimits: 8,
+      },
+    ],
+  ],
 
   presets: [
     [
@@ -88,21 +100,7 @@ const config: Config = {
         }] : []),
       ],
     },
-    footer: {
-      style: 'dark',
-      links: [
-        {
-          title: 'TechGears',
-          items: [
-            {label: 'Site', href: 'https://techgears.app'},
-            {label: 'GitHub', href: 'https://github.com/TechGearsInteli'},
-            {label: 'Instagram', href: 'https://www.instagram.com/tech.gears01/'},
-            {label: 'LinkedIn', href: 'https://www.linkedin.com/company/tech-gears01/'},
-          ],
-        },
-      ],
-      copyright: `Copyright © ${new Date().getFullYear()} TechGears Inteli. Built with Docusaurus.`,
-    },
+    footer: undefined,
     prism: {
       theme: prismThemes.oneDark,
       darkTheme: prismThemes.oneDark,
