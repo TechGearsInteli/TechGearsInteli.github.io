@@ -1,4 +1,4 @@
-import {useState, type ReactNode} from 'react';
+import {useState, useRef, useEffect, type ReactNode} from 'react';
 import Layout from '@theme/Layout';
 import styles from './index.module.css';
 
@@ -17,8 +17,8 @@ const STATUS_LABEL: Record<string, {text: string; cls: string}> = {
 };
 
 function ProjectCard({slug, name, description, status = 'active', url}: Project) {
-  const href   = url ?? `/${slug}/`;
-  const label  = STATUS_LABEL[status] ?? STATUS_LABEL.soon;
+  const href  = url ?? `/${slug}/`;
+  const label = STATUS_LABEL[status] ?? STATUS_LABEL.soon;
   const active = status === 'active';
 
   return (
@@ -34,28 +34,57 @@ function ProjectCard({slug, name, description, status = 'active', url}: Project)
   );
 }
 
+function SearchDropdownItem({project}: {project: Project}) {
+  const href  = project.url ?? `/${project.slug}/`;
+  const label = STATUS_LABEL[project.status] ?? STATUS_LABEL.soon;
+  const active = project.status === 'active';
+
+  return (
+    <a
+      className={`${styles.dropdownItem} ${!active ? styles.dropdownItemDisabled : ''}`}
+      href={active ? href : undefined}
+      target="_self"
+    >
+      <div className={styles.dropdownItemContent}>
+        <span className={styles.dropdownItemName}>{project.name}</span>
+        <span className={`${styles.dropdownTag} ${label.cls}`}>{label.text}</span>
+      </div>
+      <p className={styles.dropdownItemDesc}>{project.description}</p>
+    </a>
+  );
+}
+
 export default function Home(): ReactNode {
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   const allProjects: Project[] = require('../data/projects.json');
-  const [query, setQuery] = useState('');
+
+  const [query, setQuery]       = useState('');
+  const [open, setOpen]         = useState(false);
+  const wrapperRef              = useRef<HTMLDivElement>(null);
 
   const filtered = query.trim()
     ? allProjects.filter(p =>
         p.name.toLowerCase().includes(query.toLowerCase()) ||
         p.description.toLowerCase().includes(query.toLowerCase())
       )
-    : allProjects;
+    : [];
 
-  const handleSearch = (e: {preventDefault: () => void}) => {
-    e.preventDefault();
-    if (query.trim()) {
-      window.location.href = `/search?q=${encodeURIComponent(query.trim())}`;
+  // Close dropdown on outside click
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
     }
-  };
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, []);
 
   return (
     <Layout title="Projetos" description="Portal de documentação técnica dos projetos da TechGears.">
       <main className={styles.main}>
+
+        {/* Hero with search */}
         <div className={styles.hero}>
           <h1 className={styles.heading}>
             Tech<span className={styles.accent}>Gears</span>
@@ -63,30 +92,45 @@ export default function Home(): ReactNode {
           <p className={styles.subtitle}>
             Portal de documentação técnica dos projetos da TechGears.
           </p>
-          <form className={styles.searchForm} onSubmit={handleSearch}>
-            <input
-              className={styles.searchInput}
-              type="search"
-              placeholder="Pesquisar na documentação..."
-              value={query}
-              onChange={e => setQuery(e.target.value)}
-              autoComplete="off"
-            />
-            <button className={styles.searchBtn} type="submit">
-              Pesquisar
-            </button>
-          </form>
+
+          <div className={styles.searchWrapper} ref={wrapperRef}>
+            <div className={styles.searchForm}>
+              <input
+                className={styles.searchInput}
+                type="search"
+                placeholder="Pesquisar projetos..."
+                value={query}
+                autoComplete="off"
+                onChange={e => {
+                  setQuery(e.target.value);
+                  setOpen(true);
+                }}
+                onFocus={() => setOpen(true)}
+              />
+            </div>
+
+            {open && query.trim() && (
+              <div className={styles.dropdown}>
+                {filtered.length > 0
+                  ? filtered.map(p => <SearchDropdownItem key={p.slug} project={p} />)
+                  : <p className={styles.dropdownEmpty}>Nenhum projeto encontrado para "{query}"</p>
+                }
+              </div>
+            )}
+          </div>
         </div>
 
+        {/* Projects grid — visible on scroll */}
         <div className={styles.projectsSection}>
-          <h2 className={styles.sectionTitle}>Projetos</h2>
+          <p className={styles.sectionTitle}>Todos os projetos</p>
           <div className={styles.grid}>
-            {filtered.map(p => <ProjectCard key={p.slug} {...p} />)}
-            {filtered.length === 0 && (
+            {allProjects.map(p => <ProjectCard key={p.slug} {...p} />)}
+            {allProjects.length === 0 && (
               <p className={styles.empty}>Nenhum projeto encontrado.</p>
             )}
           </div>
         </div>
+
       </main>
     </Layout>
   );

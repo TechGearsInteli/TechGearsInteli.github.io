@@ -1,10 +1,9 @@
 .main {
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 60px);
 }
 
-/* Hero section with search — above the fold */
+/* Hero — full viewport height */
 .hero {
   display: flex;
   flex-direction: column;
@@ -32,16 +31,20 @@
   margin-bottom: 2rem;
 }
 
-/* Search bar */
-.searchForm {
-  display: flex;
+/* Search */
+.searchWrapper {
+  position: relative;
   width: 100%;
   max-width: 560px;
-  gap: 0;
+}
+
+.searchForm {
+  display: flex;
   border-radius: 28px;
   overflow: hidden;
   border: 2px solid rgba(248, 48, 56, 0.4);
   transition: border-color 0.2s;
+  background: #2f2f2f;
 }
 
 .searchForm:focus-within {
@@ -51,7 +54,7 @@
 .searchInput {
   flex: 1;
   padding: 0.85rem 1.25rem;
-  background: #2f2f2f;
+  background: transparent;
   border: none;
   outline: none;
   color: #fff;
@@ -63,24 +66,79 @@
   color: rgba(255, 255, 255, 0.35);
 }
 
-.searchBtn {
-  padding: 0.85rem 1.5rem;
-  background: #f83038;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  font-size: 0.95rem;
+/* Dropdown results */
+.dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: #2f2f2f;
+  border: 1px solid rgba(248, 48, 56, 0.3);
+  border-radius: 12px;
+  overflow: hidden;
+  z-index: 100;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.dropdownItem {
+  display: block;
+  padding: 0.85rem 1.25rem;
+  text-decoration: none;
+  color: inherit;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  transition: background 0.12s;
+}
+
+.dropdownItem:last-child {
+  border-bottom: none;
+}
+
+.dropdownItem:hover {
+  background: #383838;
+  text-decoration: none;
+  color: inherit;
+}
+
+.dropdownItemDisabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.dropdownItemContent {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.2rem;
+}
+
+.dropdownItemName {
   font-weight: 500;
-  font-family: inherit;
-  transition: background 0.15s;
-  white-space: nowrap;
+  font-size: 0.95rem;
+  color: #fff;
 }
 
-.searchBtn:hover {
-  background: #d01f26;
+.dropdownItemDesc {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+  line-height: 1.4;
 }
 
-/* Projects section — visible on scroll */
+.dropdownTag {
+  font-size: 0.65rem;
+  font-weight: 500;
+  padding: 0.1rem 0.4rem;
+  border-radius: 999px;
+}
+
+.dropdownEmpty {
+  padding: 1rem 1.25rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+/* Projects section */
 .projectsSection {
   padding: 3rem 2rem 4rem;
   max-width: 960px;
@@ -89,13 +147,12 @@
 }
 
 .sectionTitle {
-  font-size: 1.25rem;
+  font-size: 0.8rem;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.5);
   margin-bottom: 1.5rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  font-size: 0.8rem;
 }
 
 .grid {
@@ -141,8 +198,12 @@
   margin: 0;
 }
 
-.tag {
+.tag,
+.dropdownTag {
   display: inline-block;
+}
+
+.tag {
   font-size: 0.7rem;
   font-weight: 500;
   padding: 0.15rem 0.5rem;
@@ -150,20 +211,9 @@
   margin-bottom: 0.6rem;
 }
 
-.tagActive {
-  background: rgba(248, 48, 56, 0.15);
-  color: #f83038;
-}
-
-.tagWip {
-  background: rgba(248, 180, 0, 0.12);
-  color: #f8b400;
-}
-
-.tagSoon {
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.4);
-}
+.tagActive  { background: rgba(248, 48, 56, 0.15); color: #f83038; }
+.tagWip     { background: rgba(248, 180, 0, 0.12); color: #f8b400; }
+.tagSoon    { background: rgba(255, 255, 255, 0.08); color: rgba(255, 255, 255, 0.4); }
 
 .empty {
   color: rgba(255, 255, 255, 0.4);
