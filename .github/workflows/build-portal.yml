@@ -1,0 +1,38 @@
+name: Build Portal
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [docs-deployed]
+  schedule:
+    - cron: '0 3 * * *'   # daily at 03:00 UTC
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/build-portal.js'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Scan repos and generate portal
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/build-portal.js
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html projects.json
+          git diff --cached --quiet && echo "No changes" || \
+            git commit -m "chore: regenerate portal [skip ci]" && git push
