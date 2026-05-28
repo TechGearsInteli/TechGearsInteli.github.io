@@ -9,7 +9,7 @@ const projectNavItems = (projects as Project[])
   .filter(p => p.status === 'active' || p.status === 'wip' || !p.status)
   .map(p => ({
     label: p.name,
-    href: p.url ?? `https://docs.techgears.app/${p.slug}/`,
+    href: p.url ?? `/${p.slug}/`,
   }));
 
 const config: Config = {
