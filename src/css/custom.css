@@ -1,15 +1,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap");
 
+/* ─── TechGears design tokens — light mode (default) ──────────────────────── */
 :root {
   --tg-red: #f83038;
   --tg-red-dark: #d01f26;
   --tg-red-darker: #b51b21;
   --tg-red-light: #fa5860;
   --tg-red-lighter: #fb7078;
-  --tg-bg: #222222;
-  --tg-bg-dark: #1c1c1c;
-  --tg-bg-card: #2f2f2f;
 
+  /* Adaptive tokens */
+  --tg-card-bg:            #f0f0f0;
+  --tg-card-bg-hover:      #e4e4e4;
+  --tg-text-muted:         rgba(0, 0, 0, 0.55);
+  --tg-text-subtle:        rgba(0, 0, 0, 0.35);
+  --tg-border:             rgba(0, 0, 0, 0.12);
+  --tg-search-bg:          #f0f0f0;
+  --tg-dropdown-bg:        #ffffff;
+  --tg-dropdown-border:    rgba(248, 48, 56, 0.25);
+  --tg-dropdown-item-hover: #f5f5f5;
+  --tg-heading-color:      #111111;
+
+  /* Docusaurus primary */
   --ifm-color-primary: var(--tg-red);
   --ifm-color-primary-dark: var(--tg-red-dark);
   --ifm-color-primary-darker: var(--tg-red-darker);
@@ -21,10 +32,22 @@
   --ifm-font-family-base: "Ubuntu", sans-serif;
   --ifm-heading-font-family: "Ubuntu", sans-serif;
   --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(248, 48, 56, 0.15);
+  --docusaurus-highlighted-code-line-bg: rgba(248, 48, 56, 0.12);
 }
 
+/* ─── Dark mode overrides ──────────────────────────────────────────────────── */
 [data-theme='dark'] {
+  --tg-card-bg:            #2f2f2f;
+  --tg-card-bg-hover:      #383838;
+  --tg-text-muted:         rgba(255, 255, 255, 0.55);
+  --tg-text-subtle:        rgba(255, 255, 255, 0.35);
+  --tg-border:             rgba(255, 255, 255, 0.1);
+  --tg-search-bg:          #2f2f2f;
+  --tg-dropdown-bg:        #2f2f2f;
+  --tg-dropdown-border:    rgba(248, 48, 56, 0.3);
+  --tg-dropdown-item-hover: #383838;
+  --tg-heading-color:      #ffffff;
+
   --ifm-color-primary: var(--tg-red);
   --ifm-color-primary-dark: var(--tg-red-dark);
   --ifm-color-primary-darker: var(--tg-red-darker);
@@ -33,13 +56,13 @@
   --ifm-color-primary-lighter: var(--tg-red-lighter);
   --ifm-color-primary-lightest: #fc9099;
 
-  --ifm-background-color: var(--tg-bg);
-  --ifm-background-surface-color: var(--tg-bg-card);
-  --ifm-navbar-background-color: var(--tg-bg-dark);
-  --ifm-footer-background-color: var(--tg-bg-dark);
+  --ifm-background-color: #222222;
+  --ifm-background-surface-color: #2f2f2f;
+  --ifm-navbar-background-color: #1c1c1c;
   --docusaurus-highlighted-code-line-bg: rgba(248, 48, 56, 0.2);
 }
 
+/* ─── Navbar ───────────────────────────────────────────────────────────────── */
 .navbar {
   border-bottom: 2px solid var(--tg-red);
 }
@@ -49,7 +72,6 @@
   width: auto;
 }
 
-/* Hide external link icons in navbar except GitHub */
 .navbar__item svg[aria-label="(opens in new tab)"] {
   display: none;
 }

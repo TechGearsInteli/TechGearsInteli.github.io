@@ -18,14 +18,15 @@
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
+  color: var(--tg-heading-color);
 }
 
 .accent {
-  color: #f83038;
+  color: var(--tg-red);
 }
 
 .subtitle {
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--tg-text-muted);
   font-weight: 300;
   font-size: 1.1rem;
   margin-bottom: 2rem;
@@ -44,11 +45,11 @@
   overflow: hidden;
   border: 2px solid rgba(248, 48, 56, 0.4);
   transition: border-color 0.2s;
-  background: #2f2f2f;
+  background: var(--tg-search-bg);
 }
 
 .searchForm:focus-within {
-  border-color: #f83038;
+  border-color: var(--tg-red);
 }
 
 .searchInput {
@@ -57,13 +58,13 @@
   background: transparent;
   border: none;
   outline: none;
-  color: #fff;
+  color: var(--ifm-color-content);
   font-size: 1rem;
   font-family: inherit;
 }
 
 .searchInput::placeholder {
-  color: rgba(255, 255, 255, 0.35);
+  color: var(--tg-text-subtle);
 }
 
 /* Dropdown results */
@@ -72,20 +73,20 @@
   top: calc(100% + 6px);
   left: 0;
   right: 0;
-  background: #2f2f2f;
-  border: 1px solid rgba(248, 48, 56, 0.3);
+  background: var(--tg-dropdown-bg);
+  border: 1px solid var(--tg-dropdown-border);
   border-radius: 12px;
   overflow: hidden;
   z-index: 100;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .dropdownItem {
   display: block;
   padding: 0.85rem 1.25rem;
   text-decoration: none;
-  color: inherit;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--ifm-color-content);
+  border-bottom: 1px solid var(--tg-border);
   transition: background 0.12s;
 }
 
@@ -94,9 +95,9 @@
 }
 
 .dropdownItem:hover {
-  background: #383838;
+  background: var(--tg-dropdown-item-hover);
   text-decoration: none;
-  color: inherit;
+  color: var(--ifm-color-content);
 }
 
 .dropdownItemDisabled {
@@ -114,12 +115,12 @@
 .dropdownItemName {
   font-weight: 500;
   font-size: 0.95rem;
-  color: #fff;
+  color: var(--ifm-color-content);
 }
 
 .dropdownItemDesc {
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--tg-text-muted);
   margin: 0;
   line-height: 1.4;
 }
@@ -133,7 +134,7 @@
 
 .dropdownEmpty {
   padding: 1rem 1.25rem;
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--tg-text-muted);
   font-size: 0.875rem;
   margin: 0;
 }
@@ -149,7 +150,7 @@
 .sectionTitle {
   font-size: 0.8rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--tg-text-muted);
   margin-bottom: 1.5rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -162,21 +163,21 @@
 }
 
 .card {
-  background: #2f2f2f;
-  border-left: 4px solid #f83038;
+  background: var(--tg-card-bg);
+  border-left: 4px solid var(--tg-red);
   border-radius: 6px;
   padding: 1.25rem 1.5rem;
   text-decoration: none;
-  color: inherit;
+  color: var(--ifm-color-content);
   transition: background 0.15s, transform 0.15s;
   display: block;
 }
 
 .card:hover {
-  background: #383838;
+  background: var(--tg-card-bg-hover);
   transform: translateY(-2px);
   text-decoration: none;
-  color: inherit;
+  color: var(--ifm-color-content);
 }
 
 .cardDisabled {
@@ -188,11 +189,12 @@
   font-size: 1rem;
   font-weight: 500;
   margin: 0 0 0.35rem;
+  color: var(--ifm-color-content);
 }
 
 .cardDesc {
   font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--tg-text-muted);
   font-weight: 300;
   line-height: 1.5;
   margin: 0;
@@ -211,10 +213,10 @@
   margin-bottom: 0.6rem;
 }
 
-.tagActive  { background: rgba(248, 48, 56, 0.15); color: #f83038; }
-.tagWip     { background: rgba(248, 180, 0, 0.12); color: #f8b400; }
-.tagSoon    { background: rgba(255, 255, 255, 0.08); color: rgba(255, 255, 255, 0.4); }
+.tagActive  { background: rgba(248, 48, 56, 0.15); color: var(--tg-red); }
+.tagWip     { background: rgba(248, 180, 0, 0.12); color: #c18a00; }
+.tagSoon    { background: var(--tg-border); color: var(--tg-text-muted); }
 
 .empty {
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--tg-text-muted);
 }
