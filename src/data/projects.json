@@ -3,12 +3,14 @@
     "slug": "obd-II_reader",
     "name": "OBD-II Reader",
     "description": "Dispositivo de leitura de dados OBD-II com dashboard web via Wi-Fi. ESP32, firmware em C e interface acessível pelo navegador sem instalar app.",
-    "status": "active"
+    "status": "active",
+    "repoName": "obd-II_reader"
   },
   {
     "slug": "programmable-ecu",
     "name": "Programmable ECU",
     "description": "ECU programável de código aberto para motores de combustão interna de 4 cilindros. ESP32, firmware em C, calibração web e telemetria em tempo real.",
-    "status": "active"
+    "status": "active",
+    "repoName": "programmable-ecu"
   }
 ]
