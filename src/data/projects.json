@@ -1,6 +1,6 @@
 [
   {
-    "slug": "obd-ii-reader",
+    "slug": "obd-II_reader",
     "name": "OBD-II Reader",
     "description": "Dispositivo de leitura de dados OBD-II com dashboard web via Wi-Fi. ESP32, firmware em C e interface acessível pelo navegador sem instalar app.",
     "status": "active"
