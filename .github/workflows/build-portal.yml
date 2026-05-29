@@ -42,6 +42,9 @@ jobs:
           git diff --cached --quiet && echo "No changes to projects.json" || \
             (git commit -m "chore: update projects.json [skip ci]" && git push)
 
+      - name: Clone project docs into project-docs/
+        run: python3 scripts/clone-project-docs.py
+
       - name: Install dependencies
         run: npm ci
 
