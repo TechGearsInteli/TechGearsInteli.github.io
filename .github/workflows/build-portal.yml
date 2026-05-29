@@ -2,6 +2,8 @@ name: Build Portal
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
   repository_dispatch:
     types: [docs-deployed]
   push:
