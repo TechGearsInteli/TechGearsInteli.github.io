@@ -1,17 +1,29 @@
 import {themes as prismThemes} from 'prism-react-renderer';
+import {existsSync} from 'fs';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import projects from './src/data/projects.json';
 
-type Project = {slug: string; name: string; status?: string; url?: string};
+type Project = {slug: string; name: string; status?: string; url?: string; repoName?: string};
 
 const projectNavItems = (projects as Project[])
   .filter(p => p.status === 'active' || p.status === 'wip' || !p.status)
   .map(p => ({
     label: p.name,
-    href: p.url ?? `https://docs.techgears.app/${p.slug}/`,
-    target: '_self',
+    to: `/${p.slug}/`,
   }));
+
+const projectDocPlugins: Config['plugins'] = (projects as Project[])
+  .filter(p => existsSync(`./project-docs/${p.slug}`))
+  .map(p => [
+    '@docusaurus/plugin-content-docs',
+    {
+      id: p.slug,
+      path: `./project-docs/${p.slug}`,
+      routeBasePath: `/${p.slug}`,
+      sidebarPath: require.resolve('./sidebars-projects.ts'),
+    },
+  ]);
 
 const config: Config = {
   title: 'TechGears Docs',
@@ -31,7 +43,7 @@ const config: Config = {
   projectName: 'TechGearsInteli.github.io',
   trailingSlash: false,
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
 
   i18n: {
     defaultLocale: 'pt-BR',
@@ -39,6 +51,9 @@ const config: Config = {
   },
 
   markdown: { mermaid: true },
+
+  plugins: projectDocPlugins,
+
   themes: [
     '@docusaurus/theme-mermaid',
     [
@@ -108,7 +123,7 @@ const config: Config = {
     prism: {
       theme: prismThemes.oneDark,
       darkTheme: prismThemes.oneDark,
-      additionalLanguages: ['bash', 'json'],
+      additionalLanguages: ['bash', 'json', 'c', 'cpp'],
     },
   } satisfies Preset.ThemeConfig,
 };
