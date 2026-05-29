@@ -54,7 +54,7 @@ async function fetchAllRepos() {
     );
     if (meta && meta.slug) {
       console.log(`  ✓ ${repo.name}`);
-      projects.push(meta);
+      projects.push({ ...meta, repoName: repo.name });
     }
   }
 
